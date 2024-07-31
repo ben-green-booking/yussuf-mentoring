@@ -114,7 +114,7 @@ public class PetShopControllerShould {
                 .price(5)
                 .build());
 
-        var jumboId = subject.createPet(CreatePetDTO.builder()
+        subject.createPet(CreatePetDTO.builder()
                 .age(2)
                 .description("It's an elephant")
                 .name("Jumbo")
@@ -231,5 +231,21 @@ public class PetShopControllerShould {
                 .sold(false)
                 .build()
         );
+    }
+
+    @Test
+    void deleteAnExistingPetWithTheGivenId() {
+        var petId = subject.createPet(CreatePetDTO.builder()
+                .age(5)
+                .description("Nice cat")
+                .name("Max")
+                .gender("M")
+                .species("Cat")
+                .price(20)
+                .build());
+
+        subject.deletePet(petId);
+
+        assertThat(subject.getPetById(petId)).isEmpty();
     }
 }
