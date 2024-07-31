@@ -28,6 +28,13 @@ public class PetShopController {
     }
 
     public void updatePet(UpdatePetDTO updatePetDTO) {
+        for (Pet pet : pets) {
+            if (pet.getId() == updatePetDTO.id()) {
+                pet.setAge(updatePetDTO.age() == null ? pet.getAge() : updatePetDTO.age());
+                pet.setPrice(updatePetDTO.price() == null ? pet.getPrice() : updatePetDTO.price());
+                pet.setSold(updatePetDTO.sold() == null ? pet.isSold() : updatePetDTO.sold());
+            }
+        }
     }
 
     public void deletePet(int petId) {
@@ -47,6 +54,7 @@ public class PetShopController {
                         .price(pet.getPrice())
                         .name(pet.getName())
                         .species(pet.getSpecies())
+                        .sold(pet.isSold())
                         .gender(pet.getGender()).build();
                 return Optional.of(getPetDTO);
             }
