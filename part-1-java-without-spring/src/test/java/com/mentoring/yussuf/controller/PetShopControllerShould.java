@@ -53,6 +53,7 @@ public class PetShopControllerShould {
                 .build());
 
         assertThat(subject.getPetById(petId)).hasValue(GetPetDTO.builder()
+                .id(petId)
                 .age(5)
                 .description("Nice cat")
                 .name("Max")
@@ -77,6 +78,7 @@ public class PetShopControllerShould {
         subject.updatePet(UpdatePetDTO.builder().id(petId).sold(true).age(34).price(300).build());
 
         assertThat(subject.getPetById(petId)).hasValue(GetPetDTO.builder()
+                .id(petId)
                 .age(34)
                 .description("Nice cat")
                 .name("Max")
@@ -95,7 +97,7 @@ public class PetShopControllerShould {
 
     @Test
     public void returnAllPetsOfACertainSpeciesWhenFiltered() {
-        subject.createPet(CreatePetDTO.builder()
+        var maxId = subject.createPet(CreatePetDTO.builder()
                 .age(5)
                 .description("Nice cat")
                 .name("Max")
@@ -104,7 +106,7 @@ public class PetShopControllerShould {
                 .price(20)
                 .build());
 
-        subject.createPet(CreatePetDTO.builder()
+        var steveId = subject.createPet(CreatePetDTO.builder()
                 .age(4)
                 .description("Slightly less nice cat")
                 .name("Steve")
@@ -113,7 +115,7 @@ public class PetShopControllerShould {
                 .price(5)
                 .build());
 
-        subject.createPet(CreatePetDTO.builder()
+        var jumboId = subject.createPet(CreatePetDTO.builder()
                 .age(2)
                 .description("It's an elephant")
                 .name("Jumbo")
@@ -123,6 +125,7 @@ public class PetShopControllerShould {
                 .build());
 
         assertThat(subject.getPetsBy("Cat", false)).containsExactlyInAnyOrder(GetPetDTO.builder()
+                        .id(maxId)
                         .age(5)
                         .description("Nice cat")
                         .name("Max")
@@ -132,6 +135,7 @@ public class PetShopControllerShould {
                         .sold(false)
                         .build(),
                 GetPetDTO.builder()
+                        .id(steveId)
                         .age(4)
                         .description("Slightly less nice cat")
                         .name("Steve")
@@ -145,7 +149,7 @@ public class PetShopControllerShould {
 
     @Test
     public void returnAllPetsWhenNotFiltered() {
-        subject.createPet(CreatePetDTO.builder()
+        var maxId = subject.createPet(CreatePetDTO.builder()
                 .age(5)
                 .description("Nice cat")
                 .name("Max")
@@ -154,7 +158,7 @@ public class PetShopControllerShould {
                 .price(20)
                 .build());
 
-        subject.createPet(CreatePetDTO.builder()
+        var jumboId = subject.createPet(CreatePetDTO.builder()
                 .age(2)
                 .description("It's an elephant")
                 .name("Jumbo")
@@ -164,6 +168,7 @@ public class PetShopControllerShould {
                 .build());
 
         assertThat(subject.getPetsBy(null, false)).containsExactlyInAnyOrder(GetPetDTO.builder()
+                        .id(maxId)
                         .age(5)
                         .description("Nice cat")
                         .name("Max")
@@ -173,6 +178,7 @@ public class PetShopControllerShould {
                         .sold(false)
                         .build(),
                 GetPetDTO.builder()
+                        .id(jumboId)
                         .age(2)
                         .description("It's an elephant")
                         .name("Jumbo")
@@ -186,7 +192,7 @@ public class PetShopControllerShould {
 
     @Test
     public void returnOnlyNotSoldAnimalsWhenFiltered() {
-        subject.createPet(CreatePetDTO.builder()
+        var maxId = subject.createPet(CreatePetDTO.builder()
                 .age(5)
                 .description("Nice cat")
                 .name("Max")
@@ -216,6 +222,7 @@ public class PetShopControllerShould {
         subject.updatePet(UpdatePetDTO.builder().id(catToUpdate).sold(true).age(34).price(300).build());
 
         assertThat(subject.getPetsBy("Cat", true)).containsOnly(GetPetDTO.builder()
+                .id(maxId)
                 .age(5)
                 .description("Nice cat")
                 .name("Max")
