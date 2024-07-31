@@ -39,7 +39,7 @@ public class PetShopController {
     }
 
     public void deletePet(int petId) {
-
+        pets.stream().filter(pet -> pet.getId() == petId).findFirst().ifPresent(pets::remove);
     }
 
     public List<GetPetDTO> getPetsBy(String species, boolean availableOnly) {
