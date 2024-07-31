@@ -11,13 +11,23 @@ public class PetShopController {
 
     public int createPet(CreatePetDTO createPetDTO) {
         int id = pets.size() + 1;
-        pets.add(Pet.builder().name(createPetDTO.name()).age(createPetDTO.age()).sold(false).price(createPetDTO.price()).description(createPetDTO.description()).gender(createPetDTO.gender()).species(createPetDTO.species()).id(id).build()
+        pets.add(Pet.builder().name(createPetDTO.name())
+                .age(createPetDTO.age())
+                .sold(false)
+                .price(createPetDTO.price())
+                .description(createPetDTO.description())
+                .gender(createPetDTO.gender())
+                .species(createPetDTO.species())
+                .id(id).build()
         );
+        if (createPetDTO.species() == null) {
+            throw new RuntimeException("Species is a mandatory field for a new pet");
+        }
+
         return id;
     }
 
     public void updatePet(UpdatePetDTO updatePetDTO) {
-
     }
 
     public void deletePet(int petId) {
@@ -25,10 +35,22 @@ public class PetShopController {
     }
 
     public List<GetPetDTO> getPetsBy(String species, boolean availableOnly) {
-        return null;
+        return List.of();
     }
 
     public Optional<GetPetDTO> getPetById(int id) {
+        for (Pet pet : pets) {
+            if (pet.id() == id) {
+                GetPetDTO getPetDTO = GetPetDTO.builder().id(pet.id())
+                        .age(pet.age())
+                        .description(pet.description())
+                        .price(pet.price())
+                        .name(pet.name())
+                        .species(pet.species())
+                        .gender(pet.gender()).build();
+                return Optional.of(getPetDTO);
+            }
+        }
         return Optional.empty();
     }
 }

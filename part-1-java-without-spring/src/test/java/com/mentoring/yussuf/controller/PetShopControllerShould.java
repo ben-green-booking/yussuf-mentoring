@@ -1,8 +1,6 @@
 package com.mentoring.yussuf.controller;
 
-import com.mentoring.yussuf.dto.CreatePetDTO;
-import com.mentoring.yussuf.dto.GetPetDTO;
-import com.mentoring.yussuf.dto.UpdatePetDTO;
+import com.mentoring.yussuf.dto.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,6 +37,7 @@ public class PetShopControllerShould {
                 .gender("F")
                 .price(20)
                 .build())).hasMessage("Species is a mandatory field for a new pet");
+        assertThat(subject.getPetsBy(null, false)).isEmpty();
     }
 
     @Test
