@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'jvm-test-suite'
+    id("io.freefair.lombok") version "8.6"
+    id 'idea'
+}
+
+allprojects {
+
+    apply plugin: "idea"
+    apply plugin: "java"
+    apply plugin: "jvm-test-suite"
+    apply plugin: "io.freefair.lombok"
+
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testImplementation platform('org.junit:junit-bom:5.10.0')
+        testImplementation 'org.junit.jupiter:junit-jupiter'
+        testImplementation 'org.assertj:assertj-core:3.8.0'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
