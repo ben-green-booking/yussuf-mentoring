@@ -28,18 +28,14 @@ public class PetShopController {
     }
 
     public void updatePet(UpdatePetDTO updatePetDTO) {
-        boolean found = false;
-        for (Pet pet : pets) {
-            if (pet.getId() == updatePetDTO.id()) {
-                found = true;
-                pet.setAge(updatePetDTO.age() == null ? pet.getAge() : updatePetDTO.age());
-                pet.setPrice(updatePetDTO.price() == null ? pet.getPrice() : updatePetDTO.price());
-                pet.setSold(updatePetDTO.sold() == null ? pet.isSold() : updatePetDTO.sold());
-            }
-        }
-        if (!found) {
-            throw new RuntimeException("Pet with id " + updatePetDTO.id() + " does not exist");
-        }
+        var pet = pets.stream()
+                .filter(p -> p.getId() == updatePetDTO.id())
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Pet with id " + updatePetDTO.id() + " does not exist"));
+
+        pet.setAge(updatePetDTO.age() == null ? pet.getAge() : updatePetDTO.age());
+        pet.setPrice(updatePetDTO.price() == null ? pet.getPrice() : updatePetDTO.price());
+        pet.setSold(updatePetDTO.sold() == null ? pet.isSold() : updatePetDTO.sold());
     }
 
     public void deletePet(int petId) {
@@ -51,19 +47,18 @@ public class PetShopController {
     }
 
     public Optional<GetPetDTO> getPetById(int id) {
-        for (Pet pet : pets) {
-            if (pet.getId() == id) {
-                GetPetDTO getPetDTO = GetPetDTO.builder().id(pet.getId())
-                        .age(pet.getAge())
-                        .description(pet.getDescription())
-                        .price(pet.getPrice())
-                        .name(pet.getName())
-                        .species(pet.getSpecies())
-                        .sold(pet.isSold())
-                        .gender(pet.getGender()).build();
-                return Optional.of(getPetDTO);
-            }
-        }
-        return Optional.empty();
+        return pets.stream().filter(p -> p.getId() == id).findFirst().map(this::toGetPetDTO);
+    }
+
+    private GetPetDTO toGetPetDTO(Pet pet) {
+        GetPetDTO getPetDTO = GetPetDTO.builder().id(pet.getId())
+                .age(pet.getAge())
+                .description(pet.getDescription())
+                .price(pet.getPrice())
+                .name(pet.getName())
+                .species(pet.getSpecies())
+                .sold(pet.isSold())
+                .gender(pet.getGender()).build();
+        return getPetDTO;
     }
 }
