@@ -28,12 +28,17 @@ public class PetShopController {
     }
 
     public void updatePet(UpdatePetDTO updatePetDTO) {
+        boolean found = false;
         for (Pet pet : pets) {
             if (pet.getId() == updatePetDTO.id()) {
+                found = true;
                 pet.setAge(updatePetDTO.age() == null ? pet.getAge() : updatePetDTO.age());
                 pet.setPrice(updatePetDTO.price() == null ? pet.getPrice() : updatePetDTO.price());
                 pet.setSold(updatePetDTO.sold() == null ? pet.isSold() : updatePetDTO.sold());
             }
+        }
+        if (!found) {
+            throw new RuntimeException("Pet with id " + updatePetDTO.id() + " does not exist");
         }
     }
 
