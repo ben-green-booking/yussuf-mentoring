@@ -10,6 +10,9 @@ public class PetShopController {
     ArrayList<Pet> pets = new ArrayList();
 
     public int createPet(CreatePetDTO createPetDTO) {
+        if (createPetDTO.species() == null) {
+            throw new RuntimeException("Species is a mandatory field for a new pet");
+        }
         int id = pets.size() + 1;
         pets.add(Pet.builder().name(createPetDTO.name())
                 .age(createPetDTO.age())
@@ -20,9 +23,6 @@ public class PetShopController {
                 .species(createPetDTO.species())
                 .id(id).build()
         );
-        if (createPetDTO.species() == null) {
-            throw new RuntimeException("Species is a mandatory field for a new pet");
-        }
 
         return id;
     }
@@ -43,7 +43,8 @@ public class PetShopController {
     }
 
     public List<GetPetDTO> getPetsBy(String species, boolean availableOnly) {
-        return List.of();
+        return pets.stream().filter(p -> species == null || p.getSpecies().equals(species))
+                .filter(p -> !availableOnly || !p.isSold()).map(this::toGetPetDTO).toList();
     }
 
     public Optional<GetPetDTO> getPetById(int id) {
