@@ -40,14 +40,14 @@ public class PetShopController {
 
     public Optional<GetPetDTO> getPetById(int id) {
         for (Pet pet : pets) {
-            if (pet.id() == id) {
-                GetPetDTO getPetDTO = GetPetDTO.builder().id(pet.id())
-                        .age(pet.age())
-                        .description(pet.description())
-                        .price(pet.price())
-                        .name(pet.name())
-                        .species(pet.species())
-                        .gender(pet.gender()).build();
+            if (pet.getId() == id) {
+                GetPetDTO getPetDTO = GetPetDTO.builder().id(pet.getId())
+                        .age(pet.getAge())
+                        .description(pet.getDescription())
+                        .price(pet.getPrice())
+                        .name(pet.getName())
+                        .species(pet.getSpecies())
+                        .gender(pet.getGender()).build();
                 return Optional.of(getPetDTO);
             }
         }
