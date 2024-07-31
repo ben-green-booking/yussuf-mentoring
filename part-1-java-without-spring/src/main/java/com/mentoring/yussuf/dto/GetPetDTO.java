@@ -4,6 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record GetPetDTO(
+        int id,
         String name,
         String description,
         String species,
