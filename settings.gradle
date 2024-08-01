@@ -7,4 +7,5 @@
  */
 
 rootProject.name = 'yussuf-mentoring'
-include 'part-1-java-without-spring'
+include 'part-1-java-fundamentals'
+include 'part-2-separation-of-concerns'
