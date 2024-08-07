@@ -1,9 +1,7 @@
 package com.mentoring.yussuf.v2.controller;
 
 import com.mentoring.yussuf.v1.controller.PetShopController;
-import com.mentoring.yussuf.v2.dto.CreatePetDTO;
-import com.mentoring.yussuf.v2.dto.GetPetDTO;
-import com.mentoring.yussuf.v2.dto.UpdatePetDTO;
+import com.mentoring.yussuf.v2.dto.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -97,7 +95,7 @@ public class V2PetShopControllerShould {
                 .petInformation("Elephant|Jumbo|F|2|3000|Very big")
                 .build());
 
-        assertThat(subject.getPetsBy("Cat", false)).containsExactlyInAnyOrder(GetPetDTO.builder()
+        assertThat(subject.getPetsBy(null, false)).containsExactlyInAnyOrder(GetPetDTO.builder()
                         .petInfo(maxId + "|Cat|Max|M|5|300|A very good boy")
                         .build(),
                 GetPetDTO.builder()
@@ -117,7 +115,6 @@ public class V2PetShopControllerShould {
                 .build());
 
         PetShopController petShopController = new PetShopController();
-
 
         petShopController.updatePet(com.mentoring.yussuf.v1.dto.UpdatePetDTO.builder().id(steveId).sold(true).age(34).price(300).build());
 
