@@ -7,7 +7,11 @@ import java.util.*;
 
 public class V2PetShopController {
 
-    ArrayList<Pet> pets = new ArrayList();
+    private final ArrayList<Pet> pets;
+
+    public V2PetShopController(ArrayList<Pet> pets) {
+        this.pets = pets;
+    }
 
     public int createPet(CreatePetDTO createPetDTO) {
         String[] petDetails = createPetDTO.petInformation().split("\\|");

@@ -1,15 +1,17 @@
 package com.mentoring.yussuf.v1.controller;
 
-import com.mentoring.yussuf.v1.dto.*;
 import com.mentoring.yussuf.entity.Pet;
-import com.mentoring.yussuf.v1.dto.GetPetDTO;
-import com.mentoring.yussuf.v1.dto.UpdatePetDTO;
+import com.mentoring.yussuf.v1.dto.*;
 
 import java.util.*;
 
 public class PetShopController {
 
-    ArrayList<Pet> pets = new ArrayList();
+    private final ArrayList<Pet> pets;
+
+    public PetShopController(ArrayList<Pet> pets) {
+        this.pets = pets;
+    }
 
     public int createPet(CreatePetDTO createPetDTO) {
         if (createPetDTO.species() == null) {

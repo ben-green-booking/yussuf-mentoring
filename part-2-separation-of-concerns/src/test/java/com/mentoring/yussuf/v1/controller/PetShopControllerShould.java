@@ -1,10 +1,11 @@
 package com.mentoring.yussuf.v1.controller;
 
-import com.mentoring.yussuf.v1.dto.CreatePetDTO;
-import com.mentoring.yussuf.v1.dto.GetPetDTO;
-import com.mentoring.yussuf.v1.dto.UpdatePetDTO;
+import com.mentoring.yussuf.entity.Pet;
+import com.mentoring.yussuf.v1.dto.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -15,7 +16,7 @@ public class PetShopControllerShould {
 
     @BeforeEach
     public void setUp() {
-        subject = new PetShopController();
+        subject = new PetShopController(new ArrayList<Pet>());
     }
 
     @Test

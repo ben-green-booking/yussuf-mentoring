@@ -1,21 +1,20 @@
 package com.mentoring.yussuf.v2.controller;
 
+import com.mentoring.yussuf.entity.Pet;
 import com.mentoring.yussuf.v1.controller.PetShopController;
 import com.mentoring.yussuf.v2.dto.*;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class V2PetShopControllerShould {
 
-    private V2PetShopController subject;
+    private ArrayList<Pet> pets = new ArrayList<>();
+    private V2PetShopController subject = new V2PetShopController(pets);
 
-    @BeforeEach
-    public void setUp() {
-        subject = new V2PetShopController();
-    }
 
     @Test
     public void returnTheIdOfACreatedPet() {
@@ -114,7 +113,7 @@ public class V2PetShopControllerShould {
                 .petInformation("Cat|Steve|M|4|5|Slightly less nice cat")
                 .build());
 
-        PetShopController petShopController = new PetShopController();
+        PetShopController petShopController = new PetShopController(pets);
 
         petShopController.updatePet(com.mentoring.yussuf.v1.dto.UpdatePetDTO.builder().id(steveId).sold(true).age(34).price(300).build());
 
