@@ -1,6 +1,5 @@
 package com.mentoring.yussuf.v2.controller;
 
-import com.mentoring.yussuf.entity.Pet;
 import com.mentoring.yussuf.v2.dto.CreatePetDTO;
 import com.mentoring.yussuf.v2.dto.GetPetDTO;
 import com.mentoring.yussuf.v2.dto.UpdatePetDTO;
