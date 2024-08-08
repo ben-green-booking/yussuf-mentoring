@@ -7,9 +7,9 @@ import java.util.*;
 
 public class V2PetShopController {
 
-    private final ArrayList<Pet> pets;
+    private final Map<Integer, Pet> pets;
 
-    public V2PetShopController(ArrayList<Pet> pets) {
+    public V2PetShopController(Map<Integer, Pet> pets) {
         this.pets = pets;
     }
 

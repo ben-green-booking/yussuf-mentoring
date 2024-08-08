@@ -6,13 +6,15 @@ import com.mentoring.yussuf.v2.dto.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class V2PetShopControllerShould {
 
-    private ArrayList<Pet> pets = new ArrayList<>();
+    private Map<Integer, Pet> pets = new HashMap<>();
     private V2PetShopController subject = new V2PetShopController(pets);
 
 

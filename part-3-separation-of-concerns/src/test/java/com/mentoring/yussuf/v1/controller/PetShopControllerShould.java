@@ -1,11 +1,10 @@
 package com.mentoring.yussuf.v1.controller;
 
-import com.mentoring.yussuf.entity.Pet;
 import com.mentoring.yussuf.v1.dto.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -16,7 +15,7 @@ public class PetShopControllerShould {
 
     @BeforeEach
     public void setUp() {
-        subject = new PetShopController(new ArrayList<Pet>());
+        subject = new PetShopController(new HashMap<>());
     }
 
     @Test
