@@ -1,5 +1,6 @@
 package com.mentoring.yussuf.v1.controller;
 
+import com.mentoring.yussuf.service.PetShopService;
 import com.mentoring.yussuf.v1.dto.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ public class PetShopControllerShould {
 
     @BeforeEach
     public void setUp() {
-        subject = new PetShopController(new HashMap<>());
+        subject = new PetShopController(new PetShopService(new HashMap<>()));
     }
 
     @Test

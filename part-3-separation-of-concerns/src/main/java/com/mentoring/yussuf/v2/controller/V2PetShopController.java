@@ -49,10 +49,7 @@ public class V2PetShopController {
     }
 
     public Optional<GetPetDTO> getPetById(int id) {
-        return pets.values().stream()
-                .filter(p -> p.getId() == id)
-                .findFirst()
-                .map(this::toGetPetDTO);
+        return Optional.ofNullable(pets.get(id)).map(this::toGetPetDTO); // ofNullable = optional empty if not pet present or id is present
     }
 
     private GetPetDTO toGetPetDTO(Pet pet) {
