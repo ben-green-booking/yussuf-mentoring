@@ -18,41 +18,46 @@ public class PetShopController {
             throw new RuntimeException("Species is a mandatory field for a new pet");
         }
         int id = pets.size() + 1;
-        pets.add(Pet.builder().name(createPetDTO.name())
+        pets.put(id, Pet.builder().name(createPetDTO.name())
                 .age(createPetDTO.age())
                 .sold(false)
                 .price(createPetDTO.price())
                 .description(createPetDTO.description())
                 .gender(createPetDTO.gender())
                 .species(createPetDTO.species())
-                .id(id).build()
-        );
-
+                .id(id).build());
         return id;
     }
 
     public void updatePet(UpdatePetDTO updatePetDTO) {
-        var pet = pets.stream()
-                .filter(p -> p.getId() == updatePetDTO.id())
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Pet with id " + updatePetDTO.id() + " does not exist"));
-
-        pet.setAge(updatePetDTO.age() == null ? pet.getAge() : updatePetDTO.age());
-        pet.setPrice(updatePetDTO.price() == null ? pet.getPrice() : updatePetDTO.price());
-        pet.setSold(updatePetDTO.sold() == null ? pet.isSold() : updatePetDTO.sold());
+        pets.entrySet().stream()
+                .filter(p -> Objects.equals(p.getKey(), updatePetDTO.id())).
+                findFirst().ifPresentOrElse(p -> {
+                    Pet pet = p.getValue();
+                    pet.setAge(updatePetDTO.age() == null ? pet.getAge() : updatePetDTO.age());
+                    pet.setPrice(updatePetDTO.price() == null ? pet.getPrice() : updatePetDTO.price());
+                    pet.setSold(updatePetDTO.sold() == null ? pet.isSold() : updatePetDTO.sold());
+                }, () -> {
+                    throw new RuntimeException("Pet with id " + updatePetDTO.id() + " does not exist");
+                });
     }
 
     public void deletePet(int petId) {
-        pets.stream().filter(pet -> pet.getId() == petId).findFirst().ifPresent(pets::remove);
+        pets.remove(petId);
     }
 
     public List<GetPetDTO> getPetsBy(String species, boolean availableOnly) {
-        return pets.stream().filter(p -> species == null || p.getSpecies().equals(species))
-                .filter(p -> !availableOnly || !p.isSold()).map(this::toGetPetDTO).toList();
+        return pets.values().stream()
+                .filter(p -> species == null || p.getSpecies().equals(species))
+                .filter(p -> !availableOnly || !p.isSold())
+                .map(this::toGetPetDTO).toList();
     }
 
     public Optional<GetPetDTO> getPetById(int id) {
-        return pets.stream().filter(p -> p.getId() == id).findFirst().map(this::toGetPetDTO);
+        return pets.values().stream()
+                .filter(p -> p.getId() == id).
+                findFirst()
+                .map(this::toGetPetDTO);
     }
 
     private GetPetDTO toGetPetDTO(Pet pet) {
