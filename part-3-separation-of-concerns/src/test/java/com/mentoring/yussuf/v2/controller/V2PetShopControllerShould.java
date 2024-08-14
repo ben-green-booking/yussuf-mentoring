@@ -1,21 +1,19 @@
 package com.mentoring.yussuf.v2.controller;
 
-import com.mentoring.yussuf.entity.Pet;
 import com.mentoring.yussuf.service.PetShopService;
 import com.mentoring.yussuf.v1.controller.PetShopController;
 import com.mentoring.yussuf.v2.dto.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class V2PetShopControllerShould {
 
-    private Map<Integer, Pet> pets = new HashMap<>();
-    private V2PetShopController subject = new V2PetShopController(pets);
+    private PetShopService petShopService = new PetShopService(new HashMap<>());
+    private V2PetShopController subject = new V2PetShopController(petShopService);
 
 
     @Test
@@ -115,7 +113,7 @@ public class V2PetShopControllerShould {
                 .petInformation("Cat|Steve|M|4|5|Slightly less nice cat")
                 .build());
 
-        PetShopController petShopController = new PetShopController(new PetShopService(new HashMap<>()));
+        PetShopController petShopController = new PetShopController(petShopService);
 
         petShopController.updatePet(com.mentoring.yussuf.v1.dto.UpdatePetDTO.builder().id(steveId).sold(true).age(34).price(300).build());
 

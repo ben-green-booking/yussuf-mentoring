@@ -54,5 +54,17 @@ public class PetShopService {
     public Optional<Pet> getPetById(int id) {
         return Optional.ofNullable(pets.get(id));
     }
+
+    public void updateSpecies(Integer id, String species) {
+        pets.entrySet().stream()
+                .filter(petEntry -> Objects.equals(petEntry.getKey(), id))
+                .findFirst()
+                .ifPresentOrElse(entry -> {
+                    Pet pet = entry.getValue();
+                    if (species != null) pet.setSpecies(species);
+                }, () -> {
+                    throw new RuntimeException("Pet with id " + id + " does not exist");
+                });
+    }
 }
 
