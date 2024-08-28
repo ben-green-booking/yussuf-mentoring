@@ -3,7 +3,8 @@ package com.mentoring.yussuf.service;
 import com.mentoring.yussuf.entity.Pet;
 import com.mentoring.yussuf.repository.PetRepository;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 public class PetShopService {
 
@@ -27,48 +28,26 @@ public class PetShopService {
 
     public void updatePet(int id, Integer age, Integer price, Boolean sold) {
         //TODO Refactor - Consider what happens here. We retrieve a pet, update it, and then save it again. Which repository methods do you think we should use for that
-        pets.entrySet().stream()
-                .filter(petEntry -> Objects.equals(petEntry.getKey(), id))
-                .findFirst()
-                .ifPresentOrElse(entry -> {
-                    Pet pet = entry.getValue();
-                    if (age != null) pet.setAge(age);
-                    if (price != null) pet.setPrice(price);
-                    if (sold != null) pet.setSold(sold);
-                }, () -> {
-                    throw new RuntimeException("Pet with id " + id + " does not exist");
-                });
+        petRepository.update(id, age, price, sold);
     }
-
 
     public List<Pet> getPetsBy(String species, boolean availableOnly) {
         //TODO Refactor - All of this is repository interaction. There's basically no service layer logic here. Can we move all of this to a method in the repository?
-        return pets.values().stream()
-                .filter(p -> species == null || p.getSpecies().equals(species))
-                .filter(p -> !availableOnly || !p.isSold()).toList();
+        return petRepository.findPetsBy(species, availableOnly);
     }
 
     public void deletePet(int id) {
         //TODO Refactor - All of this is repository interaction. There's basically no service layer logic here. Can we move all of this to a method in the repository?
-        pets.remove(id);
+        petRepository.delete(id);
     }
 
     public Optional<Pet> getPetById(int id) {
         //TODO Refactor - All of this is repository interaction. There's basically no service layer logic here. Can we move all of this to a method in the repository?
-        return Optional.ofNullable(pets.get(id));
+        return petRepository.findById(id);
     }
 
     public void updateSpecies(Integer id, String species) {
-        //TODO Refactor - Consider what happens here. We retrieve a pet, update it, and then save it again. Which repository methods do you think we should use for that
-        pets.entrySet().stream()
-                .filter(petEntry -> Objects.equals(petEntry.getKey(), id))
-                .findFirst()
-                .ifPresentOrElse(entry -> {
-                    Pet pet = entry.getValue();
-                    if (species != null) pet.setSpecies(species);
-                }, () -> {
-                    throw new RuntimeException("Pet with id " + id + " does not exist");
-                });
+        petRepository.updateSpecies(id, species);
     }
 }
 
