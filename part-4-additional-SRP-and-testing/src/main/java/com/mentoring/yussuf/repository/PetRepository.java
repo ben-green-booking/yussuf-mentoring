@@ -21,19 +21,16 @@ public class PetRepository {
     }
 
     public Optional<Pet> findById(int id) {
-        //TODO Populate
         return Optional.ofNullable(pets.get(id));
     }
 
     public List<Pet> findPetsBy(String species, boolean availableOnly) {
-        //TODO Populate
         return pets.values().stream()
                 .filter(p -> species == null || p.getSpecies().equals(species))
                 .filter(p -> !availableOnly || !p.isSold()).toList();
     }
 
     public void delete(int id) {
-        //TODO Populate
         pets.remove(id);
     }
 

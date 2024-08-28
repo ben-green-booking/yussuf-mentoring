@@ -27,22 +27,18 @@ public class PetShopService {
     }
 
     public void updatePet(int id, Integer age, Integer price, Boolean sold) {
-        //TODO Refactor - Consider what happens here. We retrieve a pet, update it, and then save it again. Which repository methods do you think we should use for that
         petRepository.update(id, age, price, sold);
     }
 
     public List<Pet> getPetsBy(String species, boolean availableOnly) {
-        //TODO Refactor - All of this is repository interaction. There's basically no service layer logic here. Can we move all of this to a method in the repository?
         return petRepository.findPetsBy(species, availableOnly);
     }
 
     public void deletePet(int id) {
-        //TODO Refactor - All of this is repository interaction. There's basically no service layer logic here. Can we move all of this to a method in the repository?
         petRepository.delete(id);
     }
 
     public Optional<Pet> getPetById(int id) {
-        //TODO Refactor - All of this is repository interaction. There's basically no service layer logic here. Can we move all of this to a method in the repository?
         return petRepository.findById(id);
     }
 
