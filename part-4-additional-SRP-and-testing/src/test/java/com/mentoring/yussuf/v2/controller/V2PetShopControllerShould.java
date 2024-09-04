@@ -1,12 +1,15 @@
 package com.mentoring.yussuf.v2.controller;
 
+import com.mentoring.yussuf.entity.Pet;
 import com.mentoring.yussuf.repository.PetRepository;
 import com.mentoring.yussuf.service.PetShopService;
 import com.mentoring.yussuf.v1.controller.PetShopController;
 import com.mentoring.yussuf.v2.dto.*;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -134,4 +137,22 @@ public class V2PetShopControllerShould {
 
         assertThat(subject.getPetById(petId)).isEmpty();
     }
+
+    //Repository/Service Testing
+
+    @Test
+    void testingServiceFunctionalityforFindingbyPetById() {
+        var newPet = subject.createPet(CreatePetDTO.builder()
+                .petInformation("Cat|Max|M|5|300|A very good boy")
+                .build());
+
+        Optional<Pet> petToFind = petShopService.getPetById(newPet);
+
+        assertThat(petToFind.isPresent()).isTrue();
+        assertThat(petToFind.get().getName()).isEqualTo("Max");
+    }
+
+    @Mock
+
+    PetRepository petRepository;
 }
