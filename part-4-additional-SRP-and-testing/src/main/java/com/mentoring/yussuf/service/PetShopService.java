@@ -27,7 +27,11 @@ public class PetShopService {
     }
 
     public void updatePet(int id, Integer age, Integer price, Boolean sold) {
-        petRepository.update(id, age, price, sold);
+        var pet = petRepository.findById(id).orElseThrow(() -> new RuntimeException("Pet with id " + id + " does not exist"));
+        if (age != null) pet.setAge(age);
+        if (price != null) pet.setPrice(price);
+        if (sold != null) pet.setSold(sold);
+        petRepository.save(pet);
     }
 
     public List<Pet> getPetsBy(String species, boolean availableOnly) {
@@ -43,7 +47,9 @@ public class PetShopService {
     }
 
     public void updateSpecies(Integer id, String species) {
-        petRepository.updateSpecies(id, species);
+        var pet = petRepository.findById(id).orElseThrow(() -> new RuntimeException("Pet with id " + id + " does not exist"));
+        if (species != null) pet.setSpecies(species);
+        petRepository.save(pet);
     }
 }
 

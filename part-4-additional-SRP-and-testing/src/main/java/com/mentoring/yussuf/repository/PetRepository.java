@@ -33,30 +33,4 @@ public class PetRepository {
     public void delete(int id) {
         pets.remove(id);
     }
-
-    public void update(int id, Integer age, Integer price, Boolean sold) {
-        pets.entrySet().stream()
-                .filter(petEntry -> Objects.equals(petEntry.getKey(), id))
-                .findFirst()
-                .ifPresentOrElse(entry -> {
-                    Pet pet = entry.getValue();
-                    if (age != null) pet.setAge(age);
-                    if (price != null) pet.setPrice(price);
-                    if (sold != null) pet.setSold(sold);
-                }, () -> {
-                    throw new RuntimeException("Pet with id " + id + " does not exist");
-                });
-    }
-
-    public void updateSpecies(Integer id, String species) {
-        pets.entrySet().stream()
-                .filter(petEntry -> Objects.equals(petEntry.getKey(), id))
-                .findFirst()
-                .ifPresentOrElse(entry -> {
-                    Pet pet = entry.getValue();
-                    if (species != null) pet.setSpecies(species);
-                }, () -> {
-                    throw new RuntimeException("Pet with id " + id + " does not exist");
-                });
-    }
 }
