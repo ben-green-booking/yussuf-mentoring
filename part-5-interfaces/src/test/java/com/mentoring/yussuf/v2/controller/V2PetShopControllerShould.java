@@ -1,6 +1,6 @@
 package com.mentoring.yussuf.v2.controller;
 
-import com.mentoring.yussuf.repository.PetRepository;
+import com.mentoring.yussuf.repository.MapBackedPetRepository;
 import com.mentoring.yussuf.service.PetShopService;
 import com.mentoring.yussuf.v1.controller.PetShopController;
 import com.mentoring.yussuf.v2.dto.*;
@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class V2PetShopControllerShould {
 
-    private PetShopService petShopService = new PetShopService(new PetRepository(new HashMap<>()));
+    private PetShopService petShopService = new PetShopService(new MapBackedPetRepository(new HashMap<>()));
     private V2PetShopController subject = new V2PetShopController(petShopService);
 
 

@@ -1,14 +1,14 @@
 import com.mentoring.yussuf.entity.Pet;
-import com.mentoring.yussuf.repository.PetRepository;
+import com.mentoring.yussuf.repository.MapBackedPetRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PetShopRepositoryTest {
+public class MapBackedPetShopRepositoryTest {
 
-    private final PetRepository petRepository = new PetRepository(new HashMap<>());
+    private final MapBackedPetRepository petRepository = new MapBackedPetRepository(new HashMap<>());
 
     @Test
     public void shouldSavePetToRepository() {

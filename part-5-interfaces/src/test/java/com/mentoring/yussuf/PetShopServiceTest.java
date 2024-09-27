@@ -1,11 +1,12 @@
 package com.mentoring.yussuf;
 
 import com.mentoring.yussuf.entity.Pet;
+import com.mentoring.yussuf.repository.ListBackedPetRepository;
 import com.mentoring.yussuf.repository.PetRepository;
 import com.mentoring.yussuf.service.PetShopService;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class PetShopServiceTest {
 
-    private final PetRepository petRepository = new PetRepository(new HashMap<>());
+    private final PetRepository petRepository = new ListBackedPetRepository(new ArrayList<Pet>());
     private final PetShopService petShopService = new PetShopService(petRepository);
 
     @Test
