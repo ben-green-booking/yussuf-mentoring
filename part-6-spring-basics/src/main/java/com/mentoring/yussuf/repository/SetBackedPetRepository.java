@@ -4,7 +4,7 @@ import com.mentoring.yussuf.entity.Pet;
 
 import java.util.*;
 
-public class SetBackedPetRepository extends AbstractCollectionBackedRepository<Set<Pet>> {
+public class SetBackedPetRepository extends AbstractCollectionBackedRepository {
 
     public SetBackedPetRepository(Set<Pet> pets) {
         super(pets);

@@ -5,7 +5,7 @@ import com.mentoring.yussuf.entity.Pet;
 import java.util.List;
 import java.util.Optional;
 
-public class ListBackedPetRepository extends AbstractCollectionBackedRepository<List<Pet>> {
+public class ListBackedPetRepository extends AbstractCollectionBackedRepository {
 
     public ListBackedPetRepository(List<Pet> pets) {
         super(pets);

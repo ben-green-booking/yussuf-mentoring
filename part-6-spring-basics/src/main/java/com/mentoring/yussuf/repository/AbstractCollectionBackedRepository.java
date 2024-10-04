@@ -4,11 +4,11 @@ import com.mentoring.yussuf.entity.Pet;
 
 import java.util.Collection;
 
-public abstract class AbstractCollectionBackedRepository<T extends Collection<Pet>> implements PetRepository {
+public abstract class AbstractCollectionBackedRepository implements PetRepository {
 
-    protected final T pets;
+    protected final Collection<Pet> pets;
 
-    public AbstractCollectionBackedRepository(T pets) {
+    public AbstractCollectionBackedRepository(Collection<Pet> pets) {
         this.pets = pets;
     }
 }
