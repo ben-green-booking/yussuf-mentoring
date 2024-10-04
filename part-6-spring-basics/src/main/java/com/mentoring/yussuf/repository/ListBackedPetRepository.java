@@ -5,12 +5,10 @@ import com.mentoring.yussuf.entity.Pet;
 import java.util.List;
 import java.util.Optional;
 
-public class ListBackedPetRepository implements PetRepository {
-
-    private final List<Pet> pets;
+public class ListBackedPetRepository extends AbstractCollectionBackedRepository<List<Pet>> {
 
     public ListBackedPetRepository(List<Pet> pets) {
-        this.pets = pets;
+        super(pets);
     }
 
     @Override

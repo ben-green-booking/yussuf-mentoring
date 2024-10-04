@@ -4,12 +4,10 @@ import com.mentoring.yussuf.entity.Pet;
 
 import java.util.*;
 
-public class SetBackedPetRepository implements PetRepository {
-
-    private final Set<Pet> pets;
+public class SetBackedPetRepository extends AbstractCollectionBackedRepository<Set<Pet>> {
 
     public SetBackedPetRepository(Set<Pet> pets) {
-        this.pets = pets;
+        super(pets);
     }
 
     @Override
