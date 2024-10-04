@@ -60,4 +60,20 @@ public class SetBackedPetShopRepositoryTest {
 
         assertThat(petRepository.findById(fluffyCat.getId())).isNotPresent();
     }
+
+    @Test
+    public void shouldNotAddDuplicatePetsToRepository() {
+
+        var fluffyCat = Pet.builder().age(10).price(10).sold(true).description("Cute cat!").name("Fluffy").gender("F").species("Cat").build();
+        var fluffyCat2 = Pet.builder().age(10).price(10).sold(true).description("Cute cat!").name("Fluffy").gender("F").species("Cat").build();
+        var fluffyCat3 = Pet.builder().age(10).price(10).sold(true).description("Cute cat!").name("Fluffy").gender("F").species("Cat").build();
+
+        petRepository.save(fluffyCat);
+        petRepository.save(fluffyCat2);
+        petRepository.save(fluffyCat3);
+
+        // id incrementing so they are not really duplicates
+
+        assertThat(petRepository.getAllPets()).hasSize(1);
+    }
 }

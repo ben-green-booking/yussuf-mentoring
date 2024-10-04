@@ -38,4 +38,10 @@ public class SetBackedPetRepository implements PetRepository {
     public void delete(int id) {
         pets.removeIf(pet -> pet.getId() == id);
     }
+
+    public Set<Pet> getAllPets() {
+        System.out.printf(pets.toString());
+        return pets;
+    }
+    // helper method not in interface?
 }

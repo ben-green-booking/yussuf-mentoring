@@ -1,6 +1,6 @@
 package com.mentoring.yussuf.v2.controller;
 
-import com.mentoring.yussuf.PetShopConfiguration;
+import com.mentoring.yussuf.*;
 import com.mentoring.yussuf.repository.PetRepository;
 import com.mentoring.yussuf.v1.controller.PetShopController;
 import com.mentoring.yussuf.v2.dto.*;
@@ -8,14 +8,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@ActiveProfiles(value = "map")
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = PetShopConfiguration.class)
+@ContextConfiguration(classes = {PetShopConfiguration.class, MapRepositoryConfig.class, ListRepositoryConfig.class})
 public class V2PetShopControllerIntegrationTest {
 
     @Autowired
@@ -129,7 +131,6 @@ public class V2PetShopControllerIntegrationTest {
         var steveId = subject.createPet(CreatePetDTO.builder()
                 .petInformation("Cat|Steve|M|4|5|Slightly less nice cat")
                 .build());
-
 
         petShopController.updatePet(com.mentoring.yussuf.v1.dto.UpdatePetDTO.builder().id(steveId).sold(true).age(34).price(300).build());
 
