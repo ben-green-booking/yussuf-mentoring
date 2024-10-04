@@ -39,4 +39,9 @@ public class ListBackedPetRepository implements PetRepository {
     public void delete(int id) {
         pets.removeIf(pet -> pet.getId() == id);
     }
+
+    @Override
+    public void deleteAll() {
+        pets.removeIf(pet -> true);
+    }
 }

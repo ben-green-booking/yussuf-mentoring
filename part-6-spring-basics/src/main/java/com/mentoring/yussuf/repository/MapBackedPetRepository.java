@@ -6,7 +6,7 @@ import java.util.*;
 
 public class MapBackedPetRepository implements PetRepository {
 
-    private final Map<Integer, Pet> pets;
+    private Map<Integer, Pet> pets;
 
     public MapBackedPetRepository(Map<Integer, Pet> pets) {
         this.pets = pets;
@@ -36,5 +36,10 @@ public class MapBackedPetRepository implements PetRepository {
     @Override
     public void delete(int id) {
         pets.remove(id);
+    }
+
+    @Override
+    public void deleteAll() {
+        pets = new HashMap<>();
     }
 }

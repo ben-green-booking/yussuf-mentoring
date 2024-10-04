@@ -4,3 +4,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:5.13.0'
     testImplementation 'org.springframework:spring-test:6.1.13'
 }
+
+test {
+    useJUnitPlatform {}
+}

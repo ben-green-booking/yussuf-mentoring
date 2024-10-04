@@ -1,22 +1,36 @@
 package com.mentoring.yussuf.v2.controller;
 
-import com.mentoring.yussuf.repository.MapBackedPetRepository;
-import com.mentoring.yussuf.service.PetShopService;
+import com.mentoring.yussuf.PetShopConfiguration;
+import com.mentoring.yussuf.repository.PetRepository;
 import com.mentoring.yussuf.v1.controller.PetShopController;
-import com.mentoring.yussuf.v2.dto.CreatePetDTO;
-import com.mentoring.yussuf.v2.dto.GetPetDTO;
-import com.mentoring.yussuf.v2.dto.UpdatePetDTO;
+import com.mentoring.yussuf.v2.dto.*;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.HashMap;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class V2PetShopControllerShould {
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = PetShopConfiguration.class)
+public class V2PetShopControllerIntegrationTest {
 
-    private PetShopService petShopService = new PetShopService(new MapBackedPetRepository(new HashMap<>()));
-    private V2PetShopController subject = new V2PetShopController(petShopService);
+    @Autowired
+    private V2PetShopController subject;
+
+    @Autowired
+    private PetShopController petShopController;
+
+    @Autowired
+    private PetRepository petRepository;
+
+    @AfterEach
+    void cleanup() {
+        petRepository.deleteAll();
+    }
 
 
     @Test
@@ -116,7 +130,6 @@ public class V2PetShopControllerShould {
                 .petInformation("Cat|Steve|M|4|5|Slightly less nice cat")
                 .build());
 
-        PetShopController petShopController = new PetShopController(petShopService);
 
         petShopController.updatePet(com.mentoring.yussuf.v1.dto.UpdatePetDTO.builder().id(steveId).sold(true).age(34).price(300).build());
 

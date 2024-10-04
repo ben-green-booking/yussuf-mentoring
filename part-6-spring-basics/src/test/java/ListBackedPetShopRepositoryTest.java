@@ -1,6 +1,8 @@
+import com.mentoring.yussuf.PetShopConfiguration;
 import com.mentoring.yussuf.entity.Pet;
 import com.mentoring.yussuf.repository.ListBackedPetRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.util.ArrayList;
 

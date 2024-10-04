@@ -14,4 +14,6 @@ public interface PetRepository {
     List<Pet> findPetsBy(String species, boolean availableOnly);
 
     void delete(int id);
+
+    void deleteAll();
 }
