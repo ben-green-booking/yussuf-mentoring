@@ -1,9 +1,11 @@
 package com.mentoring.yussuf.repository;
 
 import com.mentoring.yussuf.entity.Pet;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
+@Slf4j
 public abstract class AbstractCollectionBackedRepository implements PetRepository {
 
     protected final Collection<Pet> pets;
@@ -25,6 +27,7 @@ public abstract class AbstractCollectionBackedRepository implements PetRepositor
 
     @Override
     public Optional<Pet> findById(int id) {
+        log.info("Loading pet with id from {}", getRepositoryType());
         return pets.stream().filter(pet -> pet.getId() == id).findFirst();
     }
 
@@ -43,4 +46,6 @@ public abstract class AbstractCollectionBackedRepository implements PetRepositor
     public void deleteAll() {
         pets.removeIf(pet -> true);
     }
+
+    protected abstract String getRepositoryType();
 }

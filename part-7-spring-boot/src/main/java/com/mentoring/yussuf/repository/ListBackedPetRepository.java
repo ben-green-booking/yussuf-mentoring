@@ -9,4 +9,9 @@ public class ListBackedPetRepository extends AbstractCollectionBackedRepository 
     public ListBackedPetRepository(List<Pet> pets) {
         super(pets);
     }
+
+    @Override
+    protected String getRepositoryType() {
+        return "list";
+    }
 }
