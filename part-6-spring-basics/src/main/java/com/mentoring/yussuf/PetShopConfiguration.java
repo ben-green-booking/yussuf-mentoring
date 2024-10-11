@@ -26,7 +26,7 @@ public class PetShopConfiguration {
     }
 
     @Bean
-//    @Scope(value = "prototype") - prototype creates new instance of repo and map
+//  @Scope(value = "prototype") - prototype creates new instance of repo and map
     public PetShopService petShopService() {
         return new PetShopService(petRepository);
     }
