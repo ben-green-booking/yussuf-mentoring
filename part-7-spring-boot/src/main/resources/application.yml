@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: supplier-bookings-api
+  main:
+    banner-mode: off
+  profiles:
+    active: local
