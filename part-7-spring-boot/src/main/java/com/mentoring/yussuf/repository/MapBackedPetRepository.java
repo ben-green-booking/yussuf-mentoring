@@ -2,11 +2,12 @@ package com.mentoring.yussuf.repository;
 
 import com.mentoring.yussuf.entity.Pet;
 import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
 @Profile(value = "map")
-
+@Repository
 public class MapBackedPetRepository implements PetRepository {
 
     private Map<Integer, Pet> pets;
