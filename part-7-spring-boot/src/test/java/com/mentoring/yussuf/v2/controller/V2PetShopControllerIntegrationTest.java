@@ -1,23 +1,19 @@
 package com.mentoring.yussuf.v2.controller;
 
-import com.mentoring.yussuf.*;
 import com.mentoring.yussuf.repository.PetRepository;
 import com.mentoring.yussuf.v1.controller.PetShopController;
 import com.mentoring.yussuf.v2.dto.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @ActiveProfiles(value = "map")
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {PetShopConfiguration.class, MapRepositoryConfig.class, ListRepositoryConfig.class})
+@SpringBootTest
 public class V2PetShopControllerIntegrationTest {
 
     @Autowired
