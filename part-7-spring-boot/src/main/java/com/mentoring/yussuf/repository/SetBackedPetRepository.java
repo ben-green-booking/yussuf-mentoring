@@ -1,8 +1,11 @@
 package com.mentoring.yussuf.repository;
 
 import com.mentoring.yussuf.entity.Pet;
+import org.springframework.context.annotation.Profile;
 
 import java.util.Set;
+
+@Profile(value = "set")
 
 public class SetBackedPetRepository extends AbstractCollectionBackedRepository {
 

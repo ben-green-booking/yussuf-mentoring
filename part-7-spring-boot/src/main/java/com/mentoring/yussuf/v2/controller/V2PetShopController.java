@@ -3,10 +3,12 @@ package com.mentoring.yussuf.v2.controller;
 import com.mentoring.yussuf.entity.Pet;
 import com.mentoring.yussuf.service.PetShopService;
 import com.mentoring.yussuf.v2.dto.*;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
 
+@RestController
 public class V2PetShopController {
 
     private final PetShopService petShopService;

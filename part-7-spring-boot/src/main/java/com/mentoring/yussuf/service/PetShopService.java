@@ -2,10 +2,12 @@ package com.mentoring.yussuf.service;
 
 import com.mentoring.yussuf.entity.Pet;
 import com.mentoring.yussuf.repository.PetRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class PetShopService {
 
     private final PetRepository petRepository;
