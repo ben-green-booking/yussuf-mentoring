@@ -1,6 +1,8 @@
 spring:
+  profiles:
+    active: list
   application:
-    name: supplier-bookings-api
+    name: petshop-api
   main:
     banner-mode: off
   autoconfigure:
