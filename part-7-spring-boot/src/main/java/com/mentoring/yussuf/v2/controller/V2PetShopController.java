@@ -3,12 +3,14 @@ package com.mentoring.yussuf.v2.controller;
 import com.mentoring.yussuf.entity.Pet;
 import com.mentoring.yussuf.service.PetShopService;
 import com.mentoring.yussuf.v2.dto.*;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("v2/pets")
+
 public class V2PetShopController {
 
     private final PetShopService petShopService;
@@ -17,10 +19,14 @@ public class V2PetShopController {
         this.petShopService = petShopService;
     }
 
-    public int createPet(CreatePetDTO createPetDTO) {
+    @PostMapping
+    public int createPet(@RequestBody CreatePetDTO createPetDTO) {
         String[] petDetails = createPetDTO.petInformation().split("\\|");
         if (petDetails[0].isEmpty()) {
             throw new RuntimeException("Species is a mandatory field for a new pet");
+        }
+        if (petDetails.length < 6) {
+            throw new RuntimeException("Insufficient pet details provided");
         }
         return petShopService.createPet(Integer.parseInt(petDetails[3]),
                 Integer.parseInt(petDetails[4]),
@@ -31,19 +37,26 @@ public class V2PetShopController {
         ).getId();
     }
 
+    @PatchMapping("/{id}")
     public void updatePet(UpdatePetDTO updatePetDTO) {
         petShopService.updateSpecies(updatePetDTO.id(), updatePetDTO.species());
     }
 
-    public void deletePet(int petId) {
+
+    @DeleteMapping
+    public void deletePet(@PathVariable int petId) {
         petShopService.deletePet(petId);
     }
 
-    public List<GetPetDTO> getPetsBy(String species, boolean availableOnly) {
+
+    @GetMapping
+    public List<GetPetDTO> getPetsBy(@RequestParam(required = false) String species, @RequestParam boolean availableOnly) {
         return petShopService.getPetsBy(species, availableOnly).stream().map(this::toGetPetDTO).toList();
     }
 
-    public Optional<GetPetDTO> getPetById(int id) {
+
+    @RequestMapping("/{id}")
+    public Optional<GetPetDTO> getPetById(@PathVariable int id) {
         return petShopService.getPetById(id).map(this::toGetPetDTO);
         // ofNullable = optional empty if not pet present or id is present
     }
