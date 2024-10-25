@@ -68,6 +68,28 @@ public class PetShopControllerMockMVCTest {
                 .andExpect(content().string(containsString("Cat")))
                 .andExpect(content().string(containsString("nice kitty")));
     }
+
+    @Test
+    void shouldErrorMessageIfPetCreatedWithoutRequiredSpeciesField() throws Exception {
+        var pet = Pet.builder()
+                .id(1)
+                .name("Fluffy")
+                .age(10)
+                .sold(false)
+                .price(10)
+                .description("nice kitty")
+                .gender("Male")
+                .build();
+
+        when(petShopService.createPet(anyInt(), anyInt(), anyString(), anyString(), anyString(), anyString()))
+                .thenThrow(new RuntimeException("Species is a mandatory field for a new pet"));
+
+        mockMvc.perform(post("/v1/pets")
+                        .contentType("application/json")
+                        .content(new ObjectMapper().writeValueAsString(pet))) // Pet without species
+                .andExpect(status().isBadRequest()) // Expect a bad request status (400)
+                .andExpect(content().string(containsString("Species is a mandatory field for a new pet"))); // Check for error message
+    }
 }
 
 

@@ -37,13 +37,13 @@ public class PetShopController {
         // Have to manually put id in on postman instead of taking from URL, URL or Request Body?
     }
 
-    @DeleteMapping
-    public void deletePet(@PathVariable int petId) {
-        petShopService.deletePet(petId);
+    @DeleteMapping("/{id}")
+    public void deletePet(@PathVariable int id) {
+        petShopService.deletePet(id);
     }
 
-    @GetMapping
-    public List<GetPetDTO> getPetsBy(@RequestParam(required = false) String species, @RequestParam boolean availableOnly) {
+    @RequestMapping("/{species}/{availableOnly}")
+    public List<GetPetDTO> getPetsBy(@PathVariable(required = false) String species, @PathVariable boolean availableOnly) {
         return petShopService.getPetsBy(species, availableOnly).stream().map(this::toGetPetDTO).toList();
     }
 
