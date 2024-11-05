@@ -42,8 +42,8 @@ public class PetShopController {
         petShopService.deletePet(id);
     }
 
-    @RequestMapping("/{species}/{availableOnly}")
-    public List<GetPetDTO> getPetsBy(@PathVariable(required = false) String species, @PathVariable boolean availableOnly) {
+    @GetMapping
+    public List<GetPetDTO> getPetsBy(@RequestParam(required = false) String species, @RequestParam boolean availableOnly) {
         return petShopService.getPetsBy(species, availableOnly).stream().map(this::toGetPetDTO).toList();
     }
 
