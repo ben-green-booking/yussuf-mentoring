@@ -31,6 +31,7 @@ public class PetShopControllerMockMVCTest {
 
     @MockBean
     private PetShopService petShopService;
+    @Autowired private PetShopController petShopController;
 
     @Test
     void shouldReturnNewlyGeneratedPet() throws Exception {
@@ -81,14 +82,12 @@ public class PetShopControllerMockMVCTest {
                 .gender("Male")
                 .build();
 
-        when(petShopService.createPet(anyInt(), anyInt(), anyString(), anyString(), anyString(), anyString()))
-                .thenThrow(new RuntimeException("Species is a mandatory field for a new pet"));
-
         mockMvc.perform(post("/v1/pets")
                         .contentType("application/json")
                         .content(new ObjectMapper().writeValueAsString(pet))) // Pet without species
                 .andExpect(status().isBadRequest()) // Expect a bad request status (400)
                 .andExpect(content().string(containsString("Species is a mandatory field for a new pet"))); // Check for error message
+        // handleRuntimeException method is dealing with error ensuring it sends the correct message each time
     }
 }
 

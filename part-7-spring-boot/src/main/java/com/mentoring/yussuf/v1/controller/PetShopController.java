@@ -3,6 +3,7 @@ package com.mentoring.yussuf.v1.controller;
 import com.mentoring.yussuf.entity.Pet;
 import com.mentoring.yussuf.service.PetShopService;
 import com.mentoring.yussuf.v1.dto.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -63,4 +64,13 @@ public class PetShopController {
                 .gender(pet.getGender()).build();
         return getPetDTO;
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String> handleRuntimeException(RuntimeException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+    /*/
+    @ExceptionHandler This annotation tells Spring that this method should handle exceptions of type RuntimeException that occur within the controller.
+    Whenever a RuntimeException is thrown by any method in the controller, this handler method will be invoked.
+    /*/
 }
