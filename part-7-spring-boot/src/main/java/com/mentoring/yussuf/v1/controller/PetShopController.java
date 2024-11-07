@@ -35,7 +35,6 @@ public class PetShopController {
     @PatchMapping("/{id}")
     public void updatePet(@RequestBody UpdatePetDTO updatePetDTO) {
         petShopService.updatePet(updatePetDTO.id(), updatePetDTO.age(), updatePetDTO.price(), updatePetDTO.sold());
-        // Have to manually put id in on postman instead of taking from URL, URL or Request Body?
     }
 
     @DeleteMapping("/{id}")
