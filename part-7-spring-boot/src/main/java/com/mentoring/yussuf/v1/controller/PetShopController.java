@@ -3,7 +3,10 @@ package com.mentoring.yussuf.v1.controller;
 import com.mentoring.yussuf.entity.Pet;
 import com.mentoring.yussuf.service.PetShopService;
 import com.mentoring.yussuf.v1.dto.*;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +14,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("v1/pets")
+@Validated
+@Slf4j
 public class PetShopController {
 
     private final PetShopService petShopService;
@@ -20,7 +25,10 @@ public class PetShopController {
     }
 
     @PostMapping
-    public int createPet(@RequestBody CreatePetDTO createPetDTO) {
+    public int createPet(@RequestBody CreatePetDTO createPetDTO, @RequestHeader(required = false) String storeLocation) {
+        if (storeLocation != null) {
+            log.info("Store location: {}", storeLocation);
+        }
         if (createPetDTO.species() == null) {
             throw new RuntimeException("Species is a mandatory field for a new pet");
         }
@@ -33,7 +41,7 @@ public class PetShopController {
     }
 
     @PatchMapping("/{id}")
-    public void updatePet(@RequestBody UpdatePetDTO updatePetDTO) {
+    public void updatePet(@RequestBody @Valid UpdatePetDTO updatePetDTO) {
         petShopService.updatePet(updatePetDTO.id(), updatePetDTO.age(), updatePetDTO.price(), updatePetDTO.sold());
     }
 

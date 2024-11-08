@@ -133,13 +133,14 @@ public class PetShopControllerMockMVCTest {
                 .species("Cat")
                 .build();
 
-        mockMvc.perform(post("/v1/pets")
-                .contentType("application/json")
-                .content(new ObjectMapper().writeValueAsString(pet)));
-//                .andExpect(status().isOk());
-
         when(petShopService.createPet(anyInt(), anyInt(), anyString(), anyString(), anyString(), anyString()))
                 .thenReturn(pet);
+
+        mockMvc.perform(post("/v1/pets")
+                        .contentType("application/json")
+                        .content(new ObjectMapper().writeValueAsString(pet)))
+                .andExpect(content().string(containsString("1")))
+                .andExpect(status().isOk());
 
         verify(petShopService, times(1)).createPet(10, 10, "Fluffy", "nice kitty", "Male", "Cat");
     }
